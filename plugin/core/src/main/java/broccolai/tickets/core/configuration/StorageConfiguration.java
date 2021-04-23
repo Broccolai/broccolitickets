@@ -34,6 +34,11 @@ public final class StorageConfiguration {
                 config.setJdbcUrl(this.url);
                 config.setUsername(this.username);
                 config.setPassword(this.password);
+                config.setDriverClassName(findDriver(
+                        "com.mysql.jdbc.Driver",
+                        "com.mysql.cj.jdbc.Driver",
+                        "org.mariadb.jdbc.Driver"
+                ));
                 break;
             default:
                 throw new IllegalStateException();
@@ -46,6 +51,18 @@ public final class StorageConfiguration {
     private enum Type {
         H2,
         MYSQL
+    }
+
+    private static String findDriver(final @NonNull String... names) {
+        for (final String name : names) {
+            try {
+                Class.forName(name);
+                return name;
+            } catch (ClassNotFoundException ignored) {
+            }
+        }
+
+        throw new IllegalStateException("No valid SQL Driver found");
     }
 
 }
