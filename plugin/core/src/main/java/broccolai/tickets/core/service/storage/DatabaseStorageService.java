@@ -222,6 +222,20 @@ public final class DatabaseStorageService implements StorageService {
     }
 
     @Override
+    public @NonNull Integer highscore(
+            final @NonNull UUID uuid,
+            final @NonNull Collection<@NonNull TicketStatus> statuses
+    ) {
+        return this.jdbi.withHandle(handle -> {
+            return handle.createQuery(SQLQueries.COUNT_TICKETS.get()[0])
+                    .bind("uuid", uuid)
+                    .bindList("statuses", statuses)
+                    .mapTo(Integer.class)
+                    .first();
+        });
+    }
+
+    @Override
     public @NonNull Map<@NonNull UUID, @NonNull Integer> highscores(final @NonNull ChronoUnit chronoUnit) {
         return this.jdbi.withHandle(handle -> {
             return handle.createQuery(SQLQueries.HIGHSCORES.get()[0])

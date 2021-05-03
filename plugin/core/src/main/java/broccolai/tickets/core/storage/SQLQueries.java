@@ -13,6 +13,7 @@ public enum SQLQueries {
     INSERT_INTERACTION,
     NOTIFICATIONS,
     INSERT_NOTIFICATION,
+    COUNT_TICKETS,
     HIGHSCORES;
 
     private final String query;

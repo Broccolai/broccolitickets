@@ -38,6 +38,8 @@ public interface StorageService extends Disposable {
 
     void saveNotification(@NonNull Soul soul, @NonNull Component component);
 
+    @NonNull Integer highscore(@NonNull UUID uuid, @NonNull Collection<@NonNull TicketStatus> statuses);
+
     @NonNull Map<@NonNull UUID, @NonNull Integer> highscores(@NonNull ChronoUnit chronoUnit);
 
     void queue(@NonNull Ticket ticket, @NonNull Interaction interaction);
